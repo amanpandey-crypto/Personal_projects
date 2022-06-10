@@ -1,0 +1,161 @@
+.main {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+body {
+  background-color: var(--color-black);
+  color: white;
+}
+* {
+  color: white;
+}
+#preloder-background {
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
+}
+.progress {
+  width: 30vw;
+  background-color: var(--color-blue-dark);
+}
+.progress .indeterminate {
+  background-color: #ffffff8f;
+}
+.modal-background {
+  background-color: var(--color-blue-dark);
+}
+.base-error {
+  position: fixed;
+  padding: 0.5rem 2rem;
+  background-color: var(--color-red);
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  display: none;
+}
+
+#close-base-error {
+  cursor: pointer;
+}
+
+.left {
+  width: 18rem;
+  height: 100vh;
+}
+.col {
+  margin: 0 !important;
+}
+.left-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--color-dark-blue);
+  box-shadow: 1px 2px 2px #0006;
+  height: 100%;
+  width: 17rem;
+}
+
+.top-box {
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.top-box > img {
+  max-width: 2.5rem;
+  margin-right: 1rem;
+}
+.top-box > h1 {
+  font-size: 1.5em !important;
+  color: white !important;
+  margin: 0;
+}
+
+.menu {
+  padding-left: 2rem;
+}
+.menu li {
+  display: flex;
+  color: white;
+  font-size: 1.2rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.menu li:hover {
+  background-color: var(--color-blue-dark);
+}
+
+.menu li i {
+  margin-right: 1rem;
+  margin-left: 2rem;
+}
+
+.right {
+  width: calc(100% - 18rem);
+}
+
+.top-mobile {
+  display: none;
+  background-color: var(--color-blue-dark);
+  padding-left: 1.5rem;
+}
+.top-mobile > h1 {
+  font-size: 1.5rem !important;
+  color: white !important;
+  margin: 0;
+  padding: 0.8rem;
+}
+.sidenav {
+  background-color: var(--color-dark-blue);
+  width: 17rem;
+}
+
+.sidenav a li {
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0;
+}
+.sidenav a li i {
+  font-size: 1.5rem;
+}
+
+input[type="text"]:not(.browser-default):focus,
+input[type="password"]:not(.browser-default):focus {
+  border-bottom: 1px solid white !important;
+  box-shadow: 0 1px 0 0 white !important;
+}
+
+@media (max-width: 550px) {
+  .progress {
+    width: 60vw;
+  }
+  .left {
+    display: none;
+  }
+  .right {
+    width: 100%;
+  }
+  .menu-mobile {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+  }
+  .top-mobile {
+    display: flex;
+    align-items: center;
+  }
+}

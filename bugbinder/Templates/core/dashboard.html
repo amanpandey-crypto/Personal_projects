@@ -1,0 +1,109 @@
+{%extends 'base.html'%}{% load static %} {%block title%}Bug Binder |
+Dashboard{%endblock%} {%block css%}
+<link rel="stylesheet" href="{% static 'css/dashboard.css'%}" /> {%endblock%}
+{%block body%}
+<div class="content-title">
+  <div>
+    <i class="material-icons">dashboard</i>
+    <h1>Dashboard</h1>
+  </div>
+  <a href="#add-project-modal" class="modal-trigger white-text">
+    <div id="add-project">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <h6>Add Project</h6>
+    </div>
+  </a>
+</div>
+
+<div class="row boxs">
+  {% for project in projects %}
+  <!-- box starts -->
+  <div class="col l4 m12 s12">
+    <div class="box">
+      <a href="{% url 'project' id=project.id%}" class="white-text">
+        <div class="box-background">
+          <h6>{{project.title}}</h6>
+          <div class="box-bottom">
+            <div class="items">
+              <div>
+                <div class="box-item bug bug-color" title="New Bugs">
+                  <i class="material-icons">bug_report</i
+                  ><span>{{project.bugs}}</span>
+                </div>
+                <div
+                  class="box-item assigned assigned-color"
+                  title="Assigned Bugs"
+                >
+                  <i class="material-icons">build</i
+                  ><span>{{project.assigned}}</span>
+                </div>
+              </div>
+              <div class="box-item done done-color" title="Fixed Bugs">
+                <i class="material-icons">beenhere</i
+                ><span>{{project.fixed}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <!-- box ends -->
+  {%endfor%}
+</div>
+  <!-- Add Project -->
+  <div id="add-project-modal" class="modal modal-background">
+    <div class="modal-content" style="overflow: hidden">
+      <div class="row">
+        <div class="col s12 l12 error"><h5>Create New Project</h5></div>
+      </div>
+      <form method="POST">
+        {%csrf_token%}
+        <div class="row">
+          <div class="col s12 l12">
+            <div class="input-field">
+              <i class="material-icons prefix white-text">assignment</i>
+              <input
+                id="name"
+                type="text"
+                class="validate white-text"
+                name="title"
+                required
+              />
+              <label for="name" class="white-text">Project Name</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix white-text">chat</i>
+            <textarea
+              id="textarea1"
+              class="materialize-textarea"
+              name="description"
+              required
+            ></textarea>
+            <label for="textarea1" class="white-text">Description</label>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          style="display: flex; justify-content: flex-end; margin-bottom: 0"
+        >
+          <a class="waves-effect waves-light btn red modal-close">Cancel</a>
+
+          <button
+            class="waves-effect waves-light btn green"
+            style="margin-left: 1rem"
+          >
+            Create Project
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+</div>
+
+{%endblock%} {%block script%} {%endblock%}

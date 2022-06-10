@@ -1,0 +1,20 @@
+:root {
+  --color-primary: #060024;
+  --color-red: #c70039;
+  --color-green: #2ecc71;
+  --color-blue-dark: #1f4068;
+  --color-blue-light: #3282b8;
+  --color-blue-light-hover: #276fa0;
+  --color-black: #181623;
+  --color-dark-blue: #0c1928;
+}
+
+.mgreen {
+  color: #2ecc71;
+}
+.mred {
+  color: #c70039;
+}
+.myellow {
+  color: #f5b041;
+}

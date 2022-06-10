@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="theme-color" content="#0c1928" />
+
+    <!--Import Google Icon Font-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{%static 'img/bug.svg' %}"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{%static 'css/colors.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/base.css'%}" />
+    {%block css%}{%endblock%}
+
+    <title>{%block title%}{%endblock%}</title>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body style="overflow: hidden">
+    <div id="preloder-background">
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
+    <div class="base-error">
+      Sample error messagloreme Lorem ipsum dolor sit amet consectetu Lorem
+      ipsum dolor sit amet consectetur adipisicing elit. Repellendus, suscipit
+      adipisci animi soluta aut sunt ducimus officiis totam cumque praesentium
+      ab consectetur maxime id nulla quia voluptatem! Est, ab vero?
+      <i class="material-icons" id="close-base-error">clear</i>
+    </div>
+    <ul class="menu sidenav" id="mobile-links">
+      {%if not request.user.is_authenticated%}
+      <a href="{% url 'home' %}"
+        ><li><i class="material-icons"></i>Login or Signup</li></a
+      >
+      {%else%}
+      <a href="{% url 'dashboard' %}"
+        ><li><i class="material-icons">dashboard</i>Dashboard</li></a
+      >
+      <a href="{% url 'issue' %}"
+        ><li><i class="material-icons">bug_report</i>Bug Issue</li></a
+      >
+      <a href="{% url 'profile' %}"
+        ><li><i class="material-icons">account_circle</i>{{request.user.username}}</li></a
+      >
+      <a href="{% url 'task' %}"
+        ><li><i class="material-icons">details</i>Tasks</li></a
+      >
+      <a href="#"
+        ><li><i class="material-icons">exit_to_app</i>Logout</li></a
+      >
+      {%endif%}
+    </ul>
+    
+    <div class="main">
+      <div class="left">
+        <div class="left-div">
+          <a href="{% url 'dashboard' %}"
+            ><div class="top-box">
+              <img src="{%static 'img/bug.svg' %}" />
+              <h1>Bug Binder</h1>
+            </div></a
+          >
+          <ul class="menu">
+            {%if not request.user.is_authenticated%}
+            <a href="{% url 'home' %}"
+              ><li>
+                <i class="material-icons">exit_to_app</i>Login or Signup
+              </li></a
+            > {%else%}
+            <a href="{% url 'dashboard' %}"
+              ><li><i class="material-icons">dashboard</i>Dashboard</li></a
+            >
+            <a href="{% url 'issue' %}"
+              ><li><i class="material-icons">bug_report</i>Bug Issue</li></a
+            >
+            <a href="{% url 'profile' %}"
+              ><li>
+                <i class="material-icons">account_circle</i>{{request.user.username}}
+              </li></a
+            >
+
+            <a href="{% url 'task' %}"
+              ><li>
+                <i class="material-icons">details</i>Tasks
+                {%if task_count != 0 %}
+                <span
+                  class="white-text badge"
+                  style="background-color: #3282b8; border-radius: 4px"
+                  >{{task_count}}</span
+                >{%endif%}
+              </li></a
+            >
+            <a href="{%url 'logout'%}"
+              ><li><i class="material-icons">exit_to_app</i>Logout</li></a
+            >{%endif%} 
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="top-mobile">
+          <a
+            class="sidenav-trigger menu-mobile"
+            href="#"
+            data-target="mobile-links"
+            ><i class="material-icons white-text">menu</i></a
+          >
+          <h1>Bug Binder</h1>
+        </div>
+        <div class="content">{%block body%}{%endblock%}</div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+      window.onload = () => {
+        setTimeout(function () {
+          document.getElementById("preloder-background").style.display = "none";
+          document.body.style.overflow = "auto";
+        }, 1); ///use 1000 in production
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".sidenav");
+        var instances = M.Sidenav.init(elems);
+
+        var elems = document.querySelectorAll(".modal");
+        var instances = M.Modal.init(elems);
+        var elems = document.querySelectorAll("select");
+        var instances = M.FormSelect.init(elems);
+      });
+    </script>
+    {%block script%}{%endblock%}
+  </body>
+</html>

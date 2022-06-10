@@ -1,0 +1,182 @@
+{%extends 'base.html'%}{% load static %} {%block title%}Bug Binder |
+Profile{%endblock%} {%block css%}
+<link rel="stylesheet" href="{% static 'css/user.css'%}" />
+<link rel="stylesheet" href="{% static 'css/profile.css'%}" /> {%endblock%}
+
+<!--  -->
+{%block body%}
+<div class="box">
+  <div class="box-background">
+    <div class="top-section">
+      <div>
+        <i class="material-icons">account_circle</i>
+        <h6 style="margin: 0; margin-left: 0.3rem">{{request.user.username}}</h6>
+      </div>
+      <div>
+        <a
+          href="#changePassword"
+          class="modal-trigger white-text"
+          id="passwordChange-triger"
+          >Change Password</a
+        >
+        <i class="fa fa-pencil-square-o" id="edit-btn" aria-hidden="true"></i>
+        <i
+          class="fa fa-floppy-o"
+          style="display: none"
+          id="save-btn"
+          aria-hidden="true"
+        ></i>
+      </div>
+    </div>
+    <div class="box-bottom">
+      <div class="left-section">
+        <img
+          id="user-image"
+          src="{%if profile.github%}https://github.com/{{profile.github}}.png {%else%}{%static 'img/user.png'%}{%endif%}"
+        />
+        <div class="socials">
+          {%if profile.github%}
+          <a
+            id="github-link"
+            href="https://github.com/{{profile.github}}"
+            target="_blank"
+            ><i class="fa fa-github" aria-hidden="true"></i
+          ></a>
+          {%endif%} {%if profile.linkedin%}
+          <a
+            id="linkedin-link"
+            href="https://www.linkedin.com/in/{{profile.linkedin}}"
+            target="_blank"
+            ><i class="fa fa-linkedin" aria-hidden="true"></i></a
+          >{%endif%}
+        </div>
+      </div>
+      <div class="right-section" id="view-section">
+        <div class="right-sub">
+          <input type="hidden" value="{{profile.github}}" id="github" />
+          <input type="hidden" value="{{profile.linkedin}}" id="linkedin" />
+          <div class="info-field">
+            <span id="name">{{profile.name}}</span
+            ><i class="fa fa-user" aria-hidden="true"></i>
+          </div>
+          <div class="info-field">
+            <span id="email">{{request.user.email}}</span
+            ><i class="fa fa-envelope" aria-hidden="true"></i>
+          </div>
+          <div class="info-field">
+            <span id="mobile">{{profile.mobile}}</span
+            ><i class="fa fa-phone-square" aria-hidden="true"></i>
+          </div>
+          <div class="info-field">
+            <span id="office">{{profile.office}}</span
+            ><i class="fa fa-building" aria-hidden="true"></i>
+          </div>
+         
+          <div class="info-field" title="Fixed bugs">
+            {{profile.fixed}} Fixed<i class="fa fa-bug" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-section" id="edit-section">
+        <div class="info-field">
+          <input type="text" placeholder="Full Name" id="ename" /><i
+            class="fa fa-user"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="info-field">
+          <input type="text" placeholder="Email Address" id="eemail" /><i
+            class="fa fa-envelope"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="info-field">
+          <input type="text" placeholder="Mobile Number" id="emobile" /><i
+            class="fa fa-phone-square"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="info-field">
+          <input type="text" placeholder="Organization" id="eoffice" /><i
+            class="fa fa-building"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="info-field">
+          <input type="text" placeholder="GitHub username" id="egithub" /><i
+            class="fa fa-github"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="info-field">
+          <input type="text" placeholder="Linkedin username" id="elinkedin" /><i
+            class="fa fa-linkedin"
+            aria-hidden="true"
+          ></i>
+        </div>
+        <div class="info-field" id="delete-id">
+          <span >Delete Account</span>
+          <i
+            class="fa fa-trash"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Password Chnage -->
+<div id="changePassword" class="modal modal-background">
+  <div class="modal-content" style="overflow: hidden">
+    <div class="row" style="display: none" id="password-error">
+      <div class="col s12 l12 error">Password Incorrect</div>
+    </div>
+    <div class="row">
+      <div class="col s12 l12">
+        <div class="input-field">
+          <i class="material-icons prefix white-text">lock</i>
+          <input id="c_pass" type="password" class="validate white-text" />
+          <label for="c_pass" class="white-text">Current Password</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 l12">
+        <div class="input-field">
+          <i class="material-icons prefix white-text">lock_outline</i>
+          <input id="pass1" type="password" class="validate white-text" />
+          <label for="pass1" class="white-text">New Password</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 l12">
+        <div class="input-field">
+          <i class="material-icons prefix white-text">lock_outline</i>
+          <input id="pass2" type="password" class="validate white-text" />
+          <label for="pass2" class="white-text">Confirm Password</label>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      style="display: flex; justify-content: flex-end; margin-bottom: 0"
+    >
+      <a class="waves-effect waves-light btn red modal-close" id="cancel-btn"
+        >Cancel</a
+      >
+      <a
+        class="waves-effect waves-light btn green"
+        style="margin-left: 1rem"
+        id="change_pass"
+        >Save</a
+      >
+    </div>
+  </div>
+</div>
+{%endblock%} {%block script %}
+<script src="{%static 'js/profile.js'%}"></script>
+{%endblock%}

@@ -1,0 +1,84 @@
+{%extends 'base.html'%}{% load static %} {%block title%}Bug Binder |
+Tasks{%endblock%} {%block css%}
+
+<link rel="stylesheet" href="{% static 'css/bug-issue.css'%}" />
+<link rel="stylesheet" href="{% static 'css/task.css'%}" />
+{%endblock%}
+
+<!--  -->
+{%block body%}
+<div class="container-div">
+  <div class="box bug">
+    <div class="box-head">
+      <h5>Task Report</h5>
+    </div>
+    <div class="box-body field">
+      <div class="items">
+        <span class="mred">New Task</span>
+        <h5 class="mred">{{task_count}}</h5>
+      </div>
+
+      <div class="items">
+        <span class="mgreen">Fixed Task</span>
+        <h5 class="mgreen">{{fixed_task}}</h5>
+      </div>
+    </div>
+  </div>
+
+  {% for task in tasks%}
+  {%if not task.done%}
+  <div class="box">
+    <input type="hidden" id="project-id" value="{{task.project.id}}">
+   
+    <a href="{% url 'project' task.project.id %}" target="_blank"><h5>{{task.project.title}}</h5></a>
+    
+    <div class="box-body" style="padding: 1.5rem">
+      <h6>{{task.title}}</h6>
+      {%if task.reproduce%}
+      <p><b>Steps to reproduce: </b><br>{{task.reproduce}}</p>
+      {%endif%}
+      {%if task.environment %}
+      <p><b>Environment: </b><br>{{task.environment}}</p>
+      {%endif%}
+      {%if task.email%}
+      <p><b>Email: </b><br>{{task.email}}</p>
+      {%endif%}
+      {%if task.comment%}
+      <p><b>Comment: </b><br>{{task.comment}}</p>
+      {%endif%}
+      {%if task.done%}
+      <p>
+        Submitted
+        <i
+          class="fa fa-check"
+          aria-hidden="true"
+          style="font-size: 1.5rem;"
+        ></i>
+      </p>
+    {%else%}
+      <div class="row">
+        <div class="input-field col s10">
+          <textarea id="solution-{{task.id}}" class="materialize-textarea"></textarea>
+          <label for="textarea1" class="white-text">Solution</label>
+        </div>
+        <div class="col s1">
+          <i
+          data-id="{{task.id}}"
+            class="fa fa-paper-plane mgreen submit"
+            aria-hidden="true"
+            style="font-size: 1.5rem; cursor: pointer; margin-top: 17px"
+          ></i>
+        </div>
+      </div>
+      {%endif%}
+    </div>
+  </div>
+   {%endif%}
+  {%endfor%}
+  
+</div>
+
+{%endblock%}
+{%block script%}
+<script src="{%static 'js/task.js'%}"></script>
+{%endblock%}
